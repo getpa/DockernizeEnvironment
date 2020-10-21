@@ -1,0 +1,61 @@
+{
+  "latex-workshop.docker.enabled": false, //THIS IS VERY IMPORTANT because if you set it 'true' then the extension run latexmk itself. In this case, tex_templates directory is not binded into /template directory in the container.
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-f",
+        "-outdir=%OUTDIR%",
+        "%DOCFILE%" //not %DOC% because it returns full path in the host OS.
+      ]
+    },
+    {
+      "name": "redpen",
+      "command": "redpen",
+      "args": [
+        "--outdir",
+        "%OUTDIR%/redpen",
+        "--silent",
+        "-L",
+        "ja",
+        "-r",
+        "plain2",
+        "%DOCFILE_EXT%"
+      ]
+    },
+    {
+      "name": "redpen-verbose",
+      "command": "redpen",
+      "args": [
+        "--outdir",
+        "%OUTDIR%/redpen-verbose",
+        "--silent",
+        "-L",
+        "ja",
+        "-r",
+        "plain2",
+        "-t",
+        "info",
+        "%DOCFILE_EXT%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk 🔃",
+      "tools": [
+        "latexmk",
+        "redpen",
+        "redpen-verbose"
+      ]
+    },
+    {
+      "name": "redpen",
+      "tools":[
+        "redpen",
+        "redpen-verbose"
+      ]
+    }
+  ]
+}
