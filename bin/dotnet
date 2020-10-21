@@ -1,4 +1,4 @@
 #!/bin/sh
 set -euo pipefail
 
-dnenv dotnet
+dnenv dotnet $@

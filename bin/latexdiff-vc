@@ -1,4 +1,4 @@
 #!/bin/sh
 set -euo pipefail
 
-tlenv latexdiff-vc -t CFONT --git --flatten --force -r
+tlenv latexdiff-vc -t CFONT --git --flatten --force -r $@

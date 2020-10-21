@@ -1,4 +1,4 @@
 #!/bin/sh
 set -euo pipefail
 
-tmpctr -it ${PORT} node:latest
+tmpctr -it ${PORT} node:latest $@

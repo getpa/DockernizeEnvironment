@@ -1,4 +1,4 @@
 #!/bin/sh
 set -euo pipefail
 
-tlenv latexmk
+tlenv latexmk $@
