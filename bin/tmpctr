@@ -1,0 +1,7 @@
+#!/bin/sh
+set -euo pipefail
+
+docker run --rm \
+  -w "/workdir" \
+  --mount type=bind,src=$PWD,dst=/workdir \
+  $@

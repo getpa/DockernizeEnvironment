@@ -1,0 +1,4 @@
+#!/bin/sh
+set -euo pipefail
+
+tmpctr -it mcr.microsoft.com/dotnet/core/sdk $@

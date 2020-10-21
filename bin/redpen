@@ -1,0 +1,47 @@
+#!/bin/zsh
+
+# define original option
+local -A opthash
+zparseopts -D -A opthash -- -outdir: -silent -force
+
+if [[ -n "${opthash[(i)--outdir]}" ]]; then
+  outdir=${opthash[--outdir]}
+fi
+
+if [ -v outdir ]; then
+  mkdir -p $outdir 2>/dev/null
+
+  # ファイル存在確認と更新確認
+  if [ ! -e ${@:$#:1} ]; then
+    echo "You specified ${@:$#:1} as input file whereas it doesn't exist.\nCheck the input file is correct.\nThe input file must specify in last argument."
+    exit 1
+  fi
+  if [[ ! -n "${opthash[(i)--force]}" ]]; then
+    if [ -e $outdir/redpen.checksum ]; then
+      if shasum -c $outdir/redpen.checksum >/dev/null 2>/dev/null
+      then
+        echo "output file is up-to-date."
+        exit 0
+      fi
+    fi
+  fi
+
+  shasum ${@:$#:1} >| $outdir/redpen.checksum
+
+  tmpctr \
+    --mount type=bind,src=${DOCKERNIZE_ENV}/redpen_config/conf,dst=/usr/local/conf \
+    --mount type=bind,src=${DOCKERNIZE_ENV}/redpen_config/js,dst=/usr/local/js \
+    tmknom/redpen \
+    $@ \
+    > "${outdir}/${@:$#:1}.redpen.txt"
+else
+  tmpctr \
+    --mount type=bind,src=${DOCKERNIZE_ENV}/redpen_config/conf,dst=/usr/local/conf \
+    --mount type=bind,src=${DOCKERNIZE_ENV}/redpen_config/js,dst=/usr/local/js \
+    tmknom/redpen \
+    $@
+fi
+
+if [[ -n "${opthash[(i)--silent]}" ]]; then
+  exit 0
+fi

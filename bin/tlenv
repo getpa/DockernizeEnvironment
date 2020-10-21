@@ -1,0 +1,8 @@
+#!/bin/sh
+set -euo pipefail
+
+tmpctr \
+  --mount type=volume,src=ltcache,dst=/usr/local/texlive/2019/texmf-var/luatex-cache \
+  --mount type=bind,src=${DOCKERNIZE_ENV}/tex_templates,dst=/template \
+  tlenv \
+  $@

@@ -1,0 +1,59 @@
+<redpen-conf lang="ja" variant="zenkaku2">
+    <validators>
+        <!--Rules on sentence length-->
+        <validator name="SentenceLength">
+            <property name="max_len" value="100"/>
+        </validator>
+        <validator name="CommaNumber" level="warn"/>
+        <validator name="HeaderLength"/>
+
+        <!--Rules on expressions-->
+        <validator name="SuccessiveWord" />
+        <validator name="JapaneseStyle" />
+        <validator name="InvalidExpression" />
+        <validator name="JapaneseExpressionVariation" level="Info"/>
+        <validator name="DoubleNegative" />
+        <validator name="Okurigana"/>
+        <validator name="JapaneseNumberExpression"/>
+        <validator name="JapaneseAmbiguousNounConjunction" level="warn"/>
+        <validator name="JapaneseJoyoKanji" />
+        <validator name="JapaneseStyle" />
+        <!-- <validator name="LongKanjiChain" /> -->
+        <validator name="DoubledConjunctiveParticleGa" />
+        <validator name="DoubledWord" level="warn" />
+        <validator name="DoubledJoshi" level="warn" />
+        <validator name="SuccessiveSentence" />
+        <validator name="SuggestExpression" />
+        <validator name="FrequentSentenceStart" />
+
+        <!--Rules on symbols and terminologies-->
+        <validator name="InvalidSymbol"/>
+        <validator name="KatakanaEndHyphen">
+          <property name="list" value="クリッカー,プライバシー,サーバー,ユーザー"/>
+        </validator>
+        <validator name="KatakanaSpellCheck" min_freq="2">
+          <property name="min_freq" value="2"/>
+        </validator>
+        <!-- <validator name="SpaceBetweenAlphabeticalWord" /> -->
+        <validator name="ParenthesizedSentence">
+            <property name="max_count" value="3"/>
+            <property name="max_nesting_level" value="1"/>
+            <property name="max_length" value="10"/>
+        </validator>
+        <validator name="HankakuKana" level="warn" />
+
+        <!--Rules on sections and paragraphs-->
+        <validator name="SectionLength"  level="warn">
+            <property name="max_num" value="1500"/>
+        </validator>
+        <validator name="EmptySection" level="warn"/>
+        <validator name="GappedSection" />
+        <validator name="SectionLevel" />
+        <validator name="ParagraphNumber" level="info"/>
+        <validator name="ListLevel" />
+        <validator name="DuplicatedSection" level="warn"/>
+
+        <!--Load JavaScript validators-->
+        <validator name="JavaScript" />
+    </validators>
+</redpen-conf>
